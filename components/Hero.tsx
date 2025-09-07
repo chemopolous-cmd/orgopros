@@ -1,8 +1,19 @@
 import Image from "next/image";
 
-export default function Hero() {
+// Hero supports optional overrides, but works perfectly with no props.
+type HeroProps = {
+  imageSrc?: string;
+  imageAlt?: string;
+  className?: string;
+};
+
+export default function Hero({
+  imageSrc = "/hero.png", // default brand hero
+  imageAlt = "Orgopros hero graphic",
+  className = "",
+}: HeroProps) {
   return (
-    <section className="relative overflow-hidden">
+    <section className={`relative overflow-hidden ${className}`}>
       <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Copy */}
@@ -29,10 +40,9 @@ export default function Hero() {
 
           {/* Image */}
           <div className="relative mx-auto w-full max-w-xl">
-            {/* IMPORTANT: place /public/hero.png in your project */}
             <Image
-              src="/hero.png"
-              alt="Orgopros hero graphic"
+              src={imageSrc}
+              alt={imageAlt}
               width={1200}
               height={900}
               priority
