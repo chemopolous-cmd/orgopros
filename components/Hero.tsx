@@ -1,35 +1,28 @@
-export default function Hero({
-  imageSrc = "/hero.png",
-  imageAlt = "Students learning organic chemistry",
-}: {
-  imageSrc?: string;
-  imageAlt?: string;
-}) {
-  return (
-    <section className="relative bg-white">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 py-20">
-          {/* Left column: text */}
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-              <span className="!text-brand-teal">great chemists.</span>
-              <span className="block !text-brand-navy">better teachers.</span>
-            </h1>
-            <p className="mt-6 text-lg text-gray-700 max-w-prose">
-              Professional chemists, proven educators. Teaching skill at the core.
-              At Orgopros, students pay less while teachers earn more — better pay
-              attracts the best tutors, and students benefit.
-            </p>
-          </div>
+import Image from "next/image";
 
-          {/* Right column: hero image */}
-          <div className="relative">
-            <img
-              src={imageSrc}
-              alt={imageAlt}
-              className="w-full rounded-2xl shadow-lg border border-brand-navy/20"
-            />
-          </div>
+export default function Hero() {
+  return (
+    <section className="relative overflow-hidden">
+      <div className="mx-auto max-w-6xl px-6 py-24">
+        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight">
+          great chemists.<span className="block text-emerald-600">better teachers.</span>
+        </h1>
+
+        <p className="mt-6 text-lg text-gray-700 max-w-prose">
+          One-on-one organic chemistry tutoring from professional educators.
+        </p>
+
+        <div className="mt-10">
+          {/* Use the same path you used in <img src="..."> */}
+          <Image
+            src="/hero-graphic.png"
+            alt="Molecules"
+            width={1600}        // set to your image’s intrinsic width
+            height={900}        // set to your image’s intrinsic height
+            className="w-full h-auto"
+            priority            // keep if image is above the fold
+            sizes="(max-width: 1024px) 100vw, 1024px"
+          />
         </div>
       </div>
     </section>
