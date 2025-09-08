@@ -1,59 +1,64 @@
+import React from "react";
 import Hero from "@/components/Hero";
 
 export default function Page() {
   return (
     <main className="min-h-screen">
-      {/* Hero section */}
+      {/* Hero */}
       <Hero />
 
-      {/* Our Value Proposition section */}
-      <section className="bg-gray-50 py-16">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <h2 className="text-2xl font-bold tracking-tight text-brand-teal">
-            Our Value Proposition
+      {/* Our Value Proposition */}
+      <section className="bg-brand-navy/[0.02] py-6 sm:py-8">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-teal">
+            Why choose OrgoPros?
           </h2>
-          <p className="mt-4 text-lg text-gray-700">
-            Placeholder: why Orgopros stands out as the best choice for organic chemistry tutoring.
+
+          {/* Subheading */}
+          <p className="mt-2 text-lg text-brand-navy/80 text-balance mx-auto max-w-3xl">
+            Our Value Proposition:
           </p>
-          <ul className="mt-6 space-y-3 text-left max-w-xl mx-auto list-disc list-inside text-gray-700">
-            <li>Placeholder bullet point one</li>
-            <li>Placeholder bullet point two</li>
-            <li>Placeholder bullet point three</li>
+
+          {/* Branded bullets */}
+          <ul className="mt-4 mx-auto max-w-4xl text-left list-disc list-outside pl-6 marker:text-brand-teal text-brand-navy/75 sm:text-lg space-y-3">
+            <li>
+              We hire tutors through live interviews and teaching demos — never by AI - ensure that they are knowledgeable chemists and great teachers.
+            </li>
+            <li>
+              People-first support from real teachers — no automated responses, ticket queues, or bots.
+            </li>
+            <li>
+              Lean overhead means you pay less, and tutors earn more. Our starting pay is ~3x higher than our competitors.
+            </li>
           </ul>
         </div>
       </section>
 
-      {/* Features / text boxes section */}
-      <section className="bg-white py-16">
+      {/* Features / text boxes */}
+      <section className="bg-white py-6 sm:py-8">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-2xl bg-gray-50 p-8 shadow-sm border border-brand-navy/20">
-              <h3 className="text-xl font-semibold text-brand-navy">
-                Affordable for Students
-              </h3>
-              <p className="mt-3 text-gray-700">
-                Pay less than our competitors while receiving top-tier tutoring
-                from real organic chemistry professionals.
+          <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Card */}
+            <div className="rounded-2xl bg-brand-navy/[0.02] p-6 shadow-sm border border-brand-navy/15 transition-transform hover:-translate-y-[1px]">
+              <h3 className="text-xl font-semibold text-brand-navy">Professional Educators</h3>
+              <p className="mt-2.5 text-brand-navy/80">
+                Professional chemists and proven teachers who pace to your needs, build intuition, and provide need-to-know insight about test topics.
               </p>
             </div>
 
-            <div className="rounded-2xl bg-gray-50 p-8 shadow-sm border border-brand-navy/20">
-              <h3 className="text-xl font-semibold text-brand-navy">
-                Fair Pay for Tutors
-              </h3>
-              <p className="mt-3 text-gray-700">
-                We built Orgopros to pay teachers fairly — better pay attracts
-                the best teachers, and students benefit.
+            {/* Card */}
+            <div className="rounded-2xl bg-brand-navy/[0.02] p-6 shadow-sm border border-brand-navy/15 transition-transform hover:-translate-y-[1px]">
+              <h3 className="text-xl font-semibold text-brand-navy">Tailored Learning</h3>
+              <p className="mt-2.5 text-brand-navy/80">
+                We help you design a learning plan to meet your individual goals, from high school students to future doctors to organic chemistry majors and graduate students.
               </p>
             </div>
 
-            <div className="rounded-2xl bg-gray-50 p-8 shadow-sm border border-brand-navy/20">
-              <h3 className="text-xl font-semibold text-brand-navy">
-                Professional Educators
-              </h3>
-              <p className="mt-3 text-gray-700">
-                All of our tutors are professional chemists and proven educators,
-                with a student-led, supportive approach.
+            {/* Card */}
+            <div className="rounded-2xl bg-brand-navy/[0.02] p-6 shadow-sm border border-brand-navy/15 transition-transform hover:-translate-y-[1px]">
+              <h3 className="text-xl font-semibold text-brand-navy">Fair Pay means Top Tutors</h3>
+              <p className="mt-2.5 text-brand-navy/80">
+                We built OrgoPros to attract top talent with better pay. Fair pay attracts and keeps top instructors — so students get consistent, high-quality instruction.
               </p>
             </div>
           </div>
