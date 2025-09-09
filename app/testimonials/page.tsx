@@ -28,7 +28,7 @@ export default function TestimonialsPage() {
               aria-label="Begin with OrgoPros tutoring"
               className="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold bg-brand-tealHover text-white hover:bg-brand-teal focus-visible:ring-2 focus-visible:ring-brand-teal/60 transition"
             >
-              Ready to Get Started
+              Get Started
             </a>
           </div>
         </div>

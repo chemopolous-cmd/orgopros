@@ -17,13 +17,13 @@ export default function Page() {
           {/* Branded bullets */}
           <ul className="mt-4 mx-auto max-w-4xl text-left list-disc list-outside pl-6 marker:text-brand-teal text-brand-navy/75 sm:text-lg space-y-3">
             <li>
-              We hire tutors through live interviews and teaching demos — never by AI - ensure that they are knowledgeable chemists and great teachers.
+              Every tutor is a professional chemist, vetted through live interviews for teaching skill. We don’t use AI or shortcuts, and our tutors start at about 3x the industry’s typical pay — because better pay attracts the best educators.
             </li>
             <li>
               People-first support from real teachers — no automated responses, ticket queues, or bots.
             </li>
             <li>
-              Lean overhead means you pay less, and tutors earn more. Our starting pay is ~3x higher than our competitors.
+              Sessions are guided by your questions and pace, with personalized support that extends to test preparation so you’re ready for exams and beyond.
             </li>
           </ul>
         </div>

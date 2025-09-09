@@ -7,41 +7,43 @@ export default function Hero() {
         {/* Lock section height on sm+ so the image can fill it */}
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center h-auto sm:h-[44vh] lg:h-[56vh]">
           {/* Left: copy */}
-          <div className="py-6 sm:py-8 lg:py-10">
-            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-tight text-brand-navy">
-              great chemists.
-              <span className="block text-brand-teal">better teachers.</span>
-            </h1>
+          <div className="flex h-full items-center justify-center py-6 sm:py-8 lg:py-10">
+            <div className="text-left">
+              <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-tight text-brand-navy">
+                great chemists.
+                <span className="block text-brand-teal">better teachers.</span>
+              </h1>
 
-            {/* Primary tagline */}
-            <p className="mt-2 text-xl text-brand-navy/90 font-medium max-w-md leading-relaxed">
-              Professional chemists, proven educators. Teaching skill at the core.
-            </p>
+              {/* Primary tagline */}
+              <p className="mt-2 text-xl text-brand-navy/90 font-medium max-w-md leading-relaxed">
+                Professional chemists, proven educators. Teaching skill at the core.
+              </p>
 
-            {/* Supporting tagline — narrower wrap to avoid hanging */}
-            <p className="mt-2 text-base text-brand-navy/70 leading-relaxed max-w-[38ch] sm:max-w-[44ch]">
-              We strive to find the best tutors, offer them industry-leading pay, and provide our students with the best learning experience.
-            </p>
+              {/* Supporting tagline */}
+              <p className="mt-2 text-base text-brand-navy/70 leading-relaxed max-w-[38ch] sm:max-w-[44ch]">
+                We strive to find the best tutors, offer them industry-leading pay, and provide our students with the best learning experience.
+              </p>
 
-            {/* Actions */}
-            <div className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              {/* Match navbar CTA color exactly */}
-              <a
-                href="/get-started"
-                aria-label="Get started with OrgoPros tutoring"
-                className="inline-flex items-center justify-center rounded-xl bg-brand-tealHover px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/60"
-              >
-                Get Started
-              </a>
+              {/* Actions */}
+              <div className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                {/* Match navbar CTA color exactly */}
+                <a
+                  href="/get-started"
+                  aria-label="Get started with OrgoPros tutoring"
+                  className="inline-flex items-center justify-center rounded-xl bg-brand-tealHover px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/60"
+                >
+                  Get Started
+                </a>
 
-              {/* Secondary: teal outline */}
-              <a
-                href="/become-a-tutor"
-                aria-label="Learn about becoming a tutor at OrgoPros"
-                className="inline-flex items-center justify-center rounded-xl border border-brand-teal px-5 py-3 text-base font-semibold text-brand-teal hover:bg-brand-teal/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/30"
-              >
-                Become a Tutor
-              </a>
+                {/* Secondary: teal outline */}
+                <a
+                  href="/become-a-tutor"
+                  aria-label="Learn about becoming a tutor at OrgoPros"
+                  className="inline-flex items-center justify-center rounded-xl border border-brand-teal px-5 py-3 text-base font-semibold text-brand-teal hover:bg-brand-teal/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/30"
+                >
+                  Become a Tutor
+                </a>
+              </div>
             </div>
           </div>
 

@@ -2,25 +2,28 @@
 
 import React, { FormEvent } from "react";
 
-const CONTACT_EMAIL = "welcome@orgopros.com";
-
 export default function GetStartedPage() {
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
 
-    const name = (form.elements.namedItem("name") as HTMLInputElement)?.value || "";
-    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value || "";
-    const interest = (form.elements.namedItem("interest") as HTMLSelectElement)?.value || "Have a question";
-    const students = (form.elements.namedItem("students") as HTMLSelectElement)?.value || "1";
-    const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value || "";
+    const name = (form.elements.namedItem("name") as HTMLInputElement)?.value;
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value;
+    const interest = (form.elements.namedItem("interest") as HTMLSelectElement)?.value;
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value;
 
-    const subject = encodeURIComponent(`Inquiry: ${interest} — ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nStudents: ${students}\nInterest: ${interest}\n\nMessage:\n${message}`
-    );
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, interest, message }),
+    });
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    if (res.ok) {
+      alert("✅ Thanks! Your message has been sent.");
+      form.reset();
+    } else {
+      alert("❌ Oops, something went wrong. Please try again later.");
+    }
   }
 
   return (
@@ -73,42 +76,19 @@ export default function GetStartedPage() {
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="interest" className="block text-sm font-medium text-brand-navy">
-                  What are you interested in?
-                </label>
-                <select
-                  id="interest"
-                  name="interest"
-                  className="mt-1 w-full rounded-xl border border-brand-navy/20 bg-white px-3 py-2 text-brand-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40"
-                  defaultValue="Have a question"
-                >
-                  <option>Have a question</option>
-                  <option>60-minute session ($65)</option>
-                  <option>90-minute session ($97.50)</option>
-                  <option>Package — 6 × 60-min ($360)</option>
-                  <option>Group / multi-student</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="students" className="block text-sm font-medium text-brand-navy">
-                  Students
-                </label>
-                <select
-                  id="students"
-                  name="students"
-                  className="mt-1 w-full rounded-xl border border-brand-navy/20 bg-white px-3 py-2 text-brand-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40"
-                  defaultValue="1"
-                >
-                  <option value="1">1 (one-on-one)</option>
-                  <option value="2">2</option>
-                  <option value="3-5">3–5 (small group)</option>
-                  <option value="6+">6+ (class/group)</option>
-                </select>
-              </div>
+            <div>
+              <label htmlFor="interest" className="block text-sm font-medium text-brand-navy">
+                How can we help you?
+              </label>
+              <select
+                id="interest"
+                name="interest"
+                className="mt-1 w-full rounded-xl border border-brand-navy/20 bg-white px-3 py-2 text-brand-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40"
+                defaultValue="Match with a Tutor"
+              >
+                <option>Match with a Tutor</option>
+                <option>Everything Else</option>
+              </select>
             </div>
 
             <div>
@@ -120,17 +100,11 @@ export default function GetStartedPage() {
                 name="message"
                 rows={5}
                 className="mt-1 w-full rounded-xl border border-brand-navy/20 bg-white px-3 py-2 text-brand-navy placeholder:text-brand-navy/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40"
-                placeholder="Ask anything or share your goals."
+                placeholder="Ask anything or share your goals (class, topics, timeframe, test dates, etc.)."
               />
             </div>
 
-            <div className="flex items-center justify-between">
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="text-sm text-brand-teal underline underline-offset-4"
-              >
-                Prefer email? {CONTACT_EMAIL}
-              </a>
+            <div className="flex items-center justify-end">
               <button
                 type="submit"
                 className="inline-flex items-center justify-center rounded-xl bg-brand-tealHover px-5 py-2.5 text-base font-semibold text-white shadow-sm hover:bg-brand-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/60"
