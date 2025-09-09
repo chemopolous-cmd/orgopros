@@ -1,93 +1,57 @@
+import React from "react";
+
 type Testimonial = {
-  name: string;
-  role?: string;
   quote: string;
+  author: string; // initials only
 };
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Alyssa P.",
-    role: "Pre-med, OChem II",
     quote:
-      "The sessions were exactly what I needed—clear, patient explanations with zero judgment. My exam score jumped by 18 points.",
+      "I worked with my tutor across both semesters of organic chemistry. Clear explanations and pacing turned a tough class into something I looked forward to. I went from a C average to a B+ first term and kept improving the second.",
+    author: "K.G.",
   },
   {
-    name: "Marcus G.",
-    role: "Chemistry major",
     quote:
-      "They don’t just give answers; they teach you how to think through mechanisms. Best tutoring experience I’ve had.",
+      "My tutor has been a rockstar throughout this semester. I definitely would not have made it through without his support! I truly appreciate everything he has done to assist me. My last test is tomorrow and I am more than ready to kick some ass. Thanks!",
+    author: "M.W.",
   },
   {
-    name: "Sara K.",
-    role: "Post-bacc student",
     quote:
-      "Scheduling was easy and the tutors are professional educators. I finally feel confident with synthesis problems.",
+      "My tutor at OrgoPros is an excellent tutor. He explains the content in ways I understand, is patient with me, and always has a positive attitude.",
+    author: "M.K.",
   },
   {
-    name: "Diego R.",
-    role: "Biology major",
     quote:
-      "Straightforward, student-led sessions. We focused on exactly what I needed—no fluff. Worth every penny.",
+      "Mechanisms finally clicked. My tutor’s ‘why it works’ approach made reactions predictable instead of memorized.",
+    author: "L.R.",
+  },
+  {
+    quote:
+      "Every session ended with a clear plan and targeted practice. Flexible around my lab schedule and huge confidence boost before finals.",
+    author: "T.P.",
+  },
+  {
+    quote:
+      "Supportive, clear, and organized. I stopped cramming and actually started getting it — my exams showed it.",
+    author: "A.N.",
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section
-      aria-labelledby="testimonials-title"
-      className="relative py-16 sm:py-20"
-    >
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="max-w-3xl">
-          <h2
-            id="testimonials-title"
-            className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900"
-          >
-            What students say
-          </h2>
-          <p className="mt-4 text-lg text-gray-700">
-            Real feedback from learners who used our one-on-one organic
-            chemistry tutoring.
-          </p>
-        </div>
-
-        <div className="mt-10 grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {TESTIMONIALS.map((t, i) => (
-            <figure
-              key={i}
-              className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
-            >
-              <blockquote className="text-slate-800">
-                <p className="text-base leading-relaxed">
-                  “{t.quote}”
-                </p>
-              </blockquote>
-              <figcaption className="mt-4">
-                <div className="font-semibold text-slate-900">{t.name}</div>
-                {t.role ? (
-                  <div className="text-sm text-slate-500">{t.role}</div>
-                ) : null}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-
-        {/* Call-to-action beneath testimonials */}
-        <div className="mt-12 flex flex-wrap items-center gap-3">
-          <a
-            href="/get-started"
-            className="inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold bg-teal-600 text-white hover:bg-teal-700 transition"
-          >
-            Get Started
-          </a>
-          <a
-            href="/pricing"
-            className="inline-flex items-center rounded-md px-4 py-2 text-sm font-medium border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition"
-          >
-            See Pricing
-          </a>
-        </div>
-      </div>
-    </section>
+    <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {TESTIMONIALS.map((t, i) => (
+        <figure
+          key={i}
+          className="rounded-2xl bg-white p-6 border border-brand-navy/15 shadow-sm"
+        >
+          <blockquote className="text-brand-navy/85">“{t.quote}”</blockquote>
+          <figcaption className="mt-4 text-sm font-medium text-brand-navy/70">
+            — {t.author}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
   );
 }

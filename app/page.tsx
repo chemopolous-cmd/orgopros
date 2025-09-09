@@ -7,17 +7,12 @@ export default function Page() {
       {/* Hero */}
       <Hero />
 
-      {/* Our Value Proposition */}
+      {/* Why choose OrgoPros? */}
       <section className="bg-brand-navy/[0.02] py-6 sm:py-8">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-teal">
             Why choose OrgoPros?
           </h2>
-
-          {/* Subheading */}
-          <p className="mt-2 text-lg text-brand-navy/80 text-balance mx-auto max-w-3xl">
-            Our Value Proposition:
-          </p>
 
           {/* Branded bullets */}
           <ul className="mt-4 mx-auto max-w-4xl text-left list-disc list-outside pl-6 marker:text-brand-teal text-brand-navy/75 sm:text-lg space-y-3">

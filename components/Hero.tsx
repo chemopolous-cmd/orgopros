@@ -18,18 +18,18 @@ export default function Hero() {
               Professional chemists, proven educators. Teaching skill at the core.
             </p>
 
-            {/* Supporting tagline */}
-            <p className="mt-2 text-base text-brand-navy/70 max-w-prose leading-relaxed">
+            {/* Supporting tagline — narrower wrap to avoid hanging */}
+            <p className="mt-2 text-base text-brand-navy/70 leading-relaxed max-w-[38ch] sm:max-w-[44ch]">
               We strive to find the best tutors, offer them industry-leading pay, and provide our students with the best learning experience.
             </p>
 
             {/* Actions */}
             <div className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              {/* CONTRASTING TEAL: filled primary button */}
+              {/* Match navbar CTA color exactly */}
               <a
                 href="/get-started"
                 aria-label="Get started with OrgoPros tutoring"
-                className="inline-flex items-center justify-center rounded-xl bg-brand-teal px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-tealHover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/60"
+                className="inline-flex items-center justify-center rounded-xl bg-brand-tealHover px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/60"
               >
                 Get Started
               </a>

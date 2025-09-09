@@ -1,16 +1,17 @@
-// next.config.mjs
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export default {
   reactStrictMode: true,
   images: {
+    // Uses sharp if installed; enables modern formats
     formats: ["image/avif", "image/webp"],
-    // Add remotePatterns here later if you load images from external domains.
   },
-  // If you ever need it:
-  // output: "standalone",
-  // basePath: "/subpath",
-  // trailingSlash: true,
-  // experimental: { optimizePackageImports: ["lucide-react"] },
+  async redirects() {
+    return [
+      {
+        source: "/contact",
+        destination: "/get-started",
+        permanent: true,
+      },
+    ];
+  },
 };
-
-export default nextConfig;
