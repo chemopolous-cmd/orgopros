@@ -57,6 +57,7 @@ export default function JobsPage() {
       </header>
 
       <section className="mt-12 grid md:grid-cols-2 gap-8">
+        {/* Why tutor with us */}
         <div className="rounded-2xl border p-6 bg-white">
           <h2 className="text-xl font-semibold">Why tutor with us</h2>
           <ul className="mt-4 space-y-2 text-sm text-gray-700 list-disc pl-5">
@@ -75,6 +76,7 @@ export default function JobsPage() {
           </ul>
         </div>
 
+        {/* What we look for */}
         <div className="rounded-2xl border p-6 bg-white">
           <h2 className="text-xl font-semibold">What we look for</h2>
           <ul className="mt-4 space-y-2 text-sm text-gray-700 list-disc pl-5">
@@ -98,7 +100,7 @@ export default function JobsPage() {
       <section className="mt-12 rounded-2xl border p-6 bg-white">
         <h2 className="text-xl font-semibold">Apply now</h2>
         <p className="mt-3 text-sm text-gray-700">
-          Send your details and resume here. We’ll reply by email if there’s a fit.
+          Send your details and (optionally) attach a resume. We’ll reply by email if there’s a fit.
         </p>
 
         <form onSubmit={handleApply} className="mt-5 grid gap-4" encType="multipart/form-data">
@@ -158,17 +160,16 @@ export default function JobsPage() {
 
           <div>
             <label htmlFor="resume" className="block text-sm font-medium text-gray-900">
-              Resume (PDF/DOC/DOCX)
+              Resume (optional — PDF/DOC/DOCX)
             </label>
             <input
               id="resume"
               name="resume"
               type="file"
               accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-              required
               className="mt-1 w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40 file:mr-3 file:rounded-lg file:border file:border-gray-300 file:bg-gray-50 file:px-3 file:py-2 file:text-sm file:text-gray-700"
             />
-            <p className="mt-1 text-xs text-gray-500">Max 10 MB.</p>
+            <p className="mt-1 text-xs text-gray-500">Attach if handy; max 10 MB.</p>
           </div>
 
           <div className="flex items-center justify-end">

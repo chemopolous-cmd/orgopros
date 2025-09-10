@@ -1,7 +1,8 @@
+// /app/api/apply/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-export const runtime = "nodejs"; // ensure Node runtime (Buffer support)
+export const runtime = "nodejs"; // needed for Buffer
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -12,7 +13,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
  *  - email: string
  *  - website: string (optional)
  *  - note: string
- *  - resume: File (PDF/DOC/DOCX)
+ *  - resume: File (optional)
  */
 export async function POST(req: NextRequest) {
   try {
@@ -24,25 +25,37 @@ export async function POST(req: NextRequest) {
     const note = String(form.get("note") ?? "");
     const resume = form.get("resume") as File | null;
 
-    // Basic validation
-    if (!name || !email || !email.includes("@") || !resume) {
+    if (!name || !email || !email.includes("@")) {
       return NextResponse.json(
         { success: false, error: "Missing required fields." },
         { status: 400 }
       );
     }
 
-    // Enforce a simple size limit (~10 MB)
-    if (resume.size > 10 * 1024 * 1024) {
-      return NextResponse.json(
-        { success: false, error: "File too large (max 10 MB)." },
-        { status: 413 }
-      );
-    }
+    // Optional file checks
+    let attachment:
+      | {
+          filename: string;
+          content: Buffer;
+          contentType: string;
+        }
+      | undefined;
 
-    // Convert File to Buffer for attachment
-    const arrayBuffer = await resume.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    if (resume && resume.size > 0) {
+      if (resume.size > 10 * 1024 * 1024) {
+        return NextResponse.json(
+          { success: false, error: "File too large (max 10 MB)." },
+          { status: 413 }
+        );
+      }
+      const arrayBuffer = await resume.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      attachment = {
+        filename: resume.name || "resume",
+        content: buffer,
+        contentType: resume.type || "application/octet-stream",
+      };
+    }
 
     const subject = `Tutor Application — ${name}`;
     const text = `New tutor application
@@ -53,22 +66,17 @@ Website: ${website || "(none provided)"}
 
 Note:
 ${note}
+
+Resume attached: ${attachment ? "Yes" : "No"}
 `;
 
-    // Send via Resend with attachment
     const { data, error } = await resend.emails.send({
-      from: "OrgoPros <welcome@orgopros.com>", // must be a verified sender/domain in Resend
+      from: "OrgoPros <welcome@orgopros.com>",
       to: "welcome@orgopros.com",
       replyTo: email,
       subject,
       text,
-      attachments: [
-        {
-          filename: resume.name || "resume",
-          content: buffer, // Resend Node SDK accepts Buffer
-          contentType: resume.type || "application/octet-stream",
-        },
-      ],
+      attachments: attachment ? [attachment] : undefined,
     });
 
     if (error) {
