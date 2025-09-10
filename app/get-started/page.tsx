@@ -2,6 +2,12 @@
 
 import React, { FormEvent } from "react";
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 export default function GetStartedPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,6 +25,12 @@ export default function GetStartedPage() {
     });
 
     if (res.ok) {
+      // GA4 conversion: lead
+      window.gtag?.("event", "generate_lead", {
+        method: "contact_form",
+        interest,
+      });
+
       alert("✅ Thanks! Your message has been sent.");
       form.reset();
     } else {

@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Analytics from "@/components/Analytics";
 
 // ===== IDs & site URL (prefer env; fall back for local dev) =====
 const SITE_URL =
@@ -33,7 +34,6 @@ export const metadata: Metadata = {
     title: "OrgoPros — Organic Chemistry Tutoring",
     description:
       "One-on-one organic chemistry tutoring from professional educators.",
-    // TEMP placeholder image; replace with "/og.jpg" once you add it to /public
     images: [
       "https://placehold.co/1200x630/002D42/ffffff?text=OrgoPros%20%E2%80%94%20Organic%20Chemistry%20Tutoring",
     ],
@@ -48,12 +48,9 @@ export const metadata: Metadata = {
       "https://placehold.co/1200x630/002D42/ffffff?text=OrgoPros%20%E2%80%94%20Organic%20Chemistry%20Tutoring",
     ],
   },
-  // Using an SVG favicon placeholder (in /public). Swap to /favicon.ico if you prefer.
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
   },
-  // If verifying Google Search Console via meta tag:
-  // other: { "google-site-verification": "YOUR_VERIFICATION_TOKEN" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -75,10 +72,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             function gtag(){ dataLayer.push(arguments); }
             gtag('js', new Date());
 
-            // GA4 base config
-            gtag('config', '${GA4_ID}', { send_page_view: true });
+            // IMPORTANT: disable auto page_view to prevent duplicates in the App Router.
+            gtag('config', '${GA4_ID}', { send_page_view: false });
 
-            // Google Ads account-level config (safe if placeholder; does nothing until real ID)
+            // Safe to keep Ads config placeholder; it does nothing until a real ID is set.
             gtag('config', '${ADS_ID}');
           `}
         </Script>
@@ -97,6 +94,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             areaServed: "US",
           })}
         </Script>
+
+        {/* Client-side manual page_view on route changes */}
+        <Analytics />
       </body>
     </html>
   );

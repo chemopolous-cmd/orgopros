@@ -2,6 +2,12 @@
 
 import React, { FormEvent, useState } from "react";
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 export default function JobsPage() {
   const [submitting, setSubmitting] = useState(false);
 
@@ -11,15 +17,23 @@ export default function JobsPage() {
     const formEl = e.currentTarget;
 
     const formData = new FormData(formEl);
-    // Expect fields: name, email, website (optional), note, resume (File)
+    const name = String(formData.get("name") || "");
+    const email = String(formData.get("email") || "");
 
     try {
       const res = await fetch("/api/apply", {
         method: "POST",
-        body: formData, // multipart/form-data automatically set by the browser
+        body: formData,
       });
 
       if (res.ok) {
+        // GA4 conversion: application submitted
+        window.gtag?.("event", "submit_application", {
+          method: "jobs_form",
+          applicant_name: name,
+          applicant_email: email,
+        });
+
         alert("✅ Application sent. Thank you!");
         formEl.reset();
       } else {
@@ -64,26 +78,30 @@ export default function JobsPage() {
         <div className="rounded-2xl border p-6 bg-white">
           <h2 className="text-xl font-semibold">What we look for</h2>
           <ul className="mt-4 space-y-2 text-sm text-gray-700 list-disc pl-5">
-            <li>Mastery of Organic Chemistry (Orgo I/II; synthesis, mechanisms, spectroscopy).</li>
-            <li>Clear, patient communication; empathy and non-judgmental coaching.</li>
-            <li>Ability to run student-led sessions and adapt on the fly.</li>
-            <li>Prior teaching, tutoring, or TA experience is a plus.</li>
+            <li>
+              <strong>Subject mastery:</strong> Organic Chemistry I/II, including synthesis, mechanisms, and spectroscopy.
+            </li>
+            <li>
+              <strong>Communication & empathy:</strong> clear, patient explanations and non-judgmental coaching.
+            </li>
+            <li>
+              <strong>Student-led teaching:</strong> run sessions that adapt on the fly to student needs and questions.
+            </li>
+            <li>
+              <strong>Relevant experience:</strong> prior teaching, tutoring, or TA work is a plus.
+            </li>
           </ul>
         </div>
       </section>
 
-      {/* Application Form (sends directly via /api/apply, with resume upload) */}
+      {/* Application Form */}
       <section className="mt-12 rounded-2xl border p-6 bg-white">
         <h2 className="text-xl font-semibold">Apply now</h2>
         <p className="mt-3 text-sm text-gray-700">
           Send your details and resume here. We’ll reply by email if there’s a fit.
         </p>
 
-        <form
-          onSubmit={handleApply}
-          className="mt-5 grid gap-4"
-          encType="multipart/form-data"
-        >
+        <form onSubmit={handleApply} className="mt-5 grid gap-4" encType="multipart/form-data">
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-900">
@@ -165,7 +183,7 @@ export default function JobsPage() {
         </form>
       </section>
 
-      <p className="mt-8 text-xs text-gray-500">
+      <p className="mt-8 text-sm text-gray-500">
         Files are sent securely to our hiring inbox. If you prefer, you can email{" "}
         <a className="underline" href="mailto:welcome@orgopros.com">welcome@orgopros.com</a>.
       </p>
