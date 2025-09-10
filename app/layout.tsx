@@ -4,19 +4,19 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
+import { Suspense } from "react";
 
 // ===== IDs & site URL (prefer env; fall back for local dev) =====
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.orgopros.com";
 
-// GA4 Measurement ID (env preferred; fallback is your real ID for local)
 const GA4_ID =
   process.env.NEXT_PUBLIC_GA4_ID || "G-QZRQ96EF8Z";
 
-// Google Ads account Conversion ID (NOT the label). Keep placeholder
-// until you add NEXT_PUBLIC_ADS_ID in .env.local / Vercel.
 const ADS_ID =
   process.env.NEXT_PUBLIC_ADS_ID || "AW-XXXXXXX";
+
+const GA_DEBUG_FLAG = process.env.NEXT_PUBLIC_GA_DEBUG === "1";
 // ================================================================
 
 export const metadata: Metadata = {
@@ -48,9 +48,7 @@ export const metadata: Metadata = {
       "https://placehold.co/1200x630/002D42/ffffff?text=OrgoPros%20%E2%80%94%20Organic%20Chemistry%20Tutoring",
     ],
   },
-  icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-  },
+  icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }] },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -68,15 +66,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <Script id="gtag-init" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){ dataLayer.push(arguments); }
-            gtag('js', new Date());
+            (function() {
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){ dataLayer.push(arguments); }
+              window.gtag = gtag;
 
-            // IMPORTANT: disable auto page_view to prevent duplicates in the App Router.
-            gtag('config', '${GA4_ID}', { send_page_view: false });
+              gtag('js', new Date());
 
-            // Safe to keep Ads config placeholder; it does nothing until a real ID is set.
-            gtag('config', '${ADS_ID}');
+              // Enable debug based on query or env flag
+              var hasQueryDebug = typeof window !== 'undefined' && window.location.search.indexOf('ga_debug=1') !== -1;
+              var envDebug = ${GA_DEBUG_FLAG ? "true" : "false"};
+              var debugMode = hasQueryDebug || envDebug;
+
+              // Disable auto page_view to avoid duplicates; we'll send manually
+              gtag('config', '${GA4_ID}', { send_page_view: false, debug_mode: debugMode });
+
+              // Safe placeholder for Ads; no effect until real ID
+              gtag('config', '${ADS_ID}', { debug_mode: debugMode });
+            })();
           `}
         </Script>
 
@@ -95,8 +102,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           })}
         </Script>
 
-        {/* Client-side manual page_view on route changes */}
-        <Analytics />
+        {/* Wrap in Suspense to satisfy Next.js CSR bailout rules */}
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
       </body>
     </html>
   );
