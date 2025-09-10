@@ -47,7 +47,20 @@ export default function MobileNav({
 
   return (
     <div className="md:hidden">
+      {/* Row: button on the left, hamburger on the right */}
       <div className="flex items-center gap-3">
+        <button
+          onClick={() => {
+            trackCTA();
+            router.push("/get-started");
+          }}
+          className="inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold bg-brand-tealHover text-white hover:bg-brand-teal focus-visible:ring-2 focus-visible:ring-brand-teal/60 transition"
+        >
+          Get Started
+        </button>
+
+        <div className="flex-1" />
+
         <button
           aria-label="Open navigation"
           aria-expanded={open}
@@ -58,24 +71,16 @@ export default function MobileNav({
             <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" />
           </svg>
         </button>
-
-        <button
-          onClick={() => {
-            trackCTA();
-            router.push("/get-started");
-          }}
-          className="ml-1 inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold bg-brand-tealHover text-white hover:bg-brand-teal focus-visible:ring-2 focus-visible:ring-brand-teal/60 transition"
-        >
-          Get Started
-        </button>
       </div>
 
+      {/* Backdrop */}
       <button
         aria-hidden={!open}
         onClick={() => setOpen(false)}
         className={backdropClasses}
       ></button>
 
+      {/* Drawer */}
       <aside role="dialog" aria-modal="true" className={drawerClasses}>
         <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
           <span className="text-lg font-semibold">Menu</span>
