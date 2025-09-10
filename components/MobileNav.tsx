@@ -108,6 +108,18 @@ export default function MobileNav({
             </Link>
           ))}
 
+          {/* NEW: Get Started inside drawer */}
+          <Link
+            href="/get-started"
+            onClick={() => {
+              trackCTA();
+              setOpen(false);
+            }}
+            className="mt-3 block rounded-xl bg-brand-tealHover px-4 py-3 text-center text-base font-semibold text-white hover:bg-brand-teal"
+          >
+            Get Started
+          </Link>
+
           {secondaryCta ? (
             <Link
               href={secondaryCta.href}
