@@ -1,40 +1,40 @@
 "use client";
 
 import Link from "next/link";
-
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+import MobileNav from "./MobileNav";
 
 export default function Navbar() {
   function trackCTA() {
-    window.gtag?.("event", "select_content", {
+    (globalThis as any)?.gtag?.("event", "select_content", {
       content_type: "cta",
       link_text: "Get Started",
       location: "navbar",
     });
   }
 
+  const NAV_ITEMS = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About Us" },
+    { href: "/testimonials", label: "Testimonials" },
+    { href: "/pricing", label: "Pricing" },
+  ];
+
   return (
-    <nav className="bg-brand-dark text-white">
-      <div className="mx-auto max-w-7xl px-6 py-2 flex items-center justify-between">
-        {/* Brand */}
+    <header className="sticky top-0 z-50 bg-brand-dark text-white">
+      <nav className="mx-auto max-w-7xl px-6 py-2 flex items-center justify-between">
         <div className="text-lg font-bold tracking-tight">
           <Link href="/">OrgoPros</Link>
         </div>
 
-        {/* Primary nav links */}
         <div className="hidden md:flex items-center gap-6">
-          <Link href="/" className="text-white/90 hover:text-white">Home</Link>
-          <Link href="/about" className="text-white/90 hover:text-white">About Us</Link>
-          <Link href="/testimonials" className="text-white/90 hover:text-white">Testimonials</Link>
-          <Link href="/pricing" className="text-white/90 hover:text-white">Pricing</Link>
+          {NAV_ITEMS.map((it) => (
+            <Link key={it.href} href={it.href} className="text-white/90 hover:text-white">
+              {it.label}
+            </Link>
+          ))}
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3">
           <Link
             href="/get-started"
             onClick={trackCTA}
@@ -42,7 +42,6 @@ export default function Navbar() {
           >
             Get Started
           </Link>
-
           <Link
             href="/jobs"
             className="inline-flex items-center rounded-xl px-3.5 py-2 text-sm font-semibold border border-white text-white hover:bg-brand-dark/80 hover:text-white hover:ring-2 hover:ring-brand-teal/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/60 transition"
@@ -50,7 +49,14 @@ export default function Navbar() {
             Become a Tutor
           </Link>
         </div>
-      </div>
-    </nav>
+
+        <div className="md:hidden">
+          <MobileNav
+            items={NAV_ITEMS}
+            secondaryCta={{ href: "/jobs", label: "Become a Tutor" }}
+          />
+        </div>
+      </nav>
+    </header>
   );
 }
