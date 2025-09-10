@@ -28,10 +28,10 @@ export default function Navbar() {
             Get Started
           </Link>
 
-          {/* Become a tutor — white outline */}
+          {/* Become a tutor — subtle white outline + teal hover/focus ring */}
           <Link
             href="/jobs"
-            className="inline-flex items-center rounded-xl px-4 py-2 text-sm font-medium border-2 border-white text-white hover:bg-white hover:text-brand-dark transition"
+            className="inline-flex items-center rounded-xl px-3.5 py-2 text-sm font-semibold border border-white text-white hover:bg-white hover:text-brand-dark hover:ring-2 hover:ring-brand-teal/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/60 transition"
           >
             Become a Tutor
           </Link>

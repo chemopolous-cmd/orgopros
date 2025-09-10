@@ -1,5 +1,8 @@
+// /app/api/contact/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+
+export const runtime = "nodejs"; // ensure server (Buffer, Node libs) — safe here
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -19,17 +22,21 @@ export async function POST(req: NextRequest) {
       typeof message !== "string" ||
       !email.includes("@")
     ) {
+      console.warn("CONTACT: invalid request body", { name, email, interest });
       return NextResponse.json(
         { success: false, error: "Invalid request body." },
         { status: 400 }
       );
     }
 
+    // Log the incoming request (visible in Vercel → Functions → Logs)
+    console.log("CONTACT: incoming payload", { name, email, interest });
+
     // Send the email via Resend
     const { data, error } = await resend.emails.send({
       from: "OrgoPros <welcome@orgopros.com>", // must be a verified sender/domain in Resend
       to: "welcome@orgopros.com",
-      replyTo: email, // camelCase for Node SDK
+      replyTo: email, // camelCase for Resend Node SDK
       subject: `Inquiry: ${interest} — ${name}`,
       text: `Name: ${name}
 Email: ${email}
@@ -38,6 +45,8 @@ Interest: ${interest}
 Message:
 ${message}`,
     });
+
+    console.log("CONTACT: resend response", { id: data?.id, err: error });
 
     if (error) {
       console.error("Resend error:", error);
