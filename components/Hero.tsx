@@ -16,15 +16,22 @@ export default function Hero() {
                 <span className="block text-brand-teal">better teachers.</span>
               </h1>
 
-              <p className="mt-2 text-xl text-brand-navy/90 font-medium leading-relaxed">
+              {/* bump to align with section below */}
+              <p className="mt-3 text-lg sm:text-xl text-brand-navy/90 font-medium leading-relaxed">
                 Professional chemists, proven educators. Teaching skill at the core.
               </p>
 
-              <p className="mt-2 text-base text-brand-navy/70 leading-relaxed max-w-[44ch]">
-                We strive to find the best tutors, offer them industry-leading pay, and provide our students with the best learning experience.
+              <p className="mt-2 text-base sm:text-lg text-brand-navy/70 leading-relaxed max-w-[44ch]">
+                We strive to find the best tutors, offer them industry-leading pay, and provide our
+                students with the best learning experience.
               </p>
 
-              {/* Buttons are hidden on mobile; visible from md+ */}
+              {/* exact sentence appended at end of hero text */}
+              <p className="mt-2 text-base sm:text-lg text-brand-navy/70 leading-relaxed max-w-[44ch]">
+                Organic chemistry is tough. Fining a great tutor shouldn't be.
+              </p>
+
+              {/* Buttons (visible from md+) */}
               <div className="mt-5 hidden md:flex md:flex-row gap-3 md:gap-4">
                 <Link
                   href="/get-started"
@@ -44,8 +51,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: image */}
-          <div className="relative w-full aspect-[4/3] sm:aspect-[5/4] lg:aspect-auto">
+          {/* RIGHT COLUMN: image — give it explicit height so Next/Image (fill) can render */}
+          <div className="relative w-full h-[36vh] sm:h-[44vh] lg:h-[60vh]">
             <Image
               src="/hero.jpg"
               alt="Student and tutor working through organic chemistry mechanisms"
