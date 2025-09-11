@@ -16,20 +16,22 @@ export default function Hero() {
                 <span className="block text-brand-teal">better teachers.</span>
               </h1>
 
-              {/* bump to align with section below */}
-              <p className="mt-3 text-lg sm:text-xl text-brand-navy/90 font-medium leading-relaxed">
-                Professional chemists, proven educators. Teaching skill at the core.
-              </p>
+              {/* Subheading + body share the same width */}
+              <div className="mt-3 max-w-[52ch]">
+                <p className="text-lg sm:text-xl text-brand-navy/90 font-medium leading-relaxed">
+                  Professional chemists, proven educators. Teaching skill at the core.
+                </p>
 
-              <p className="mt-2 text-base sm:text-lg text-brand-navy/70 leading-relaxed max-w-[44ch]">
-                We strive to find the best tutors, offer them industry-leading pay, and provide our
-                students with the best learning experience.
-              </p>
+                <p className="mt-3 text-base sm:text-lg text-brand-navy/70 leading-relaxed">
+                  We strive to find the best tutors, offer them industry-leading pay, and provide our
+                  students with the best learning experience.
+                </p>
 
-              {/* exact sentence appended at end of hero text */}
-              <p className="mt-2 text-base sm:text-lg text-brand-navy/70 leading-relaxed max-w-[44ch]">
-                Organic chemistry is tough. Fining a great tutor shouldn't be.
-              </p>
+                {/* fixed typo here */}
+                <p className="mt-2 text-base sm:text-lg text-brand-navy/70 leading-relaxed">
+                  Organic chemistry is tough. Finding a great tutor shouldn't be.
+                </p>
+              </div>
 
               {/* Buttons (visible from md+) */}
               <div className="mt-5 hidden md:flex md:flex-row gap-3 md:gap-4">
@@ -51,7 +53,7 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: image — give it explicit height so Next/Image (fill) can render */}
+          {/* RIGHT COLUMN: image — explicit height so fill works at all breakpoints */}
           <div className="relative w-full h-[36vh] sm:h-[44vh] lg:h-[60vh]">
             <Image
               src="/hero.jpg"
