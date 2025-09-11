@@ -5,6 +5,7 @@ import React, { FormEvent } from "react";
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
   }
 }
 
@@ -28,6 +29,13 @@ export default function GetStartedPage() {
       // GA4 conversion: lead
       window.gtag?.("event", "generate_lead", {
         method: "contact_form",
+        interest,
+      });
+
+      // Google Tag Manager event for Ads conversion
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "get_started_submit",
         interest,
       });
 
