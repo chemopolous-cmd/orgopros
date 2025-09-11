@@ -6,18 +6,13 @@ import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
 import { Suspense } from "react";
 
-// ===== IDs & site URL (prefer env; fall back for local dev) =====
+// ===== Site URL (prefer env; fall back for local dev) =====
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.orgopros.com";
 
-const GA4_ID =
-  process.env.NEXT_PUBLIC_GA4_ID || "G-QZRQ96EF8Z";
-
-const ADS_ID =
-  process.env.NEXT_PUBLIC_ADS_ID || "AW-XXXXXXX";
-
-const GA_DEBUG_FLAG = process.env.NEXT_PUBLIC_GA_DEBUG === "1";
-// ================================================================
+// Your GTM container ID (replace here or via env)
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-MS6LZ3Z5";
+// ==========================================================
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -54,40 +49,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <Navbar />
-        {children}
-        <Footer />
-
-        {/* Google tag (gtag.js) — GA4 */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
+      <head>
+        {/* Google Tag Manager (head) */}
+        <Script id="gtm-head" strategy="afterInteractive">
           {`
-            (function() {
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){ dataLayer.push(arguments); }
-              window.gtag = gtag;
-
-              gtag('js', new Date());
-
-              // Enable debug based on query or env flag
-              var hasQueryDebug = typeof window !== 'undefined' && window.location.search.indexOf('ga_debug=1') !== -1;
-              var envDebug = ${GA_DEBUG_FLAG ? "true" : "false"};
-              var debugMode = hasQueryDebug || envDebug;
-
-              // Disable auto page_view to avoid duplicates; we'll send manually
-              gtag('config', '${GA4_ID}', { send_page_view: false, debug_mode: debugMode });
-
-              // Safe placeholder for Ads; no effect until real ID
-              gtag('config', '${ADS_ID}', { debug_mode: debugMode });
-            })();
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id=${GTM_ID}'+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID}');
           `}
         </Script>
 
-        {/* JSON-LD: Organization */}
+        {/* JSON-LD: Organization schema */}
         <Script id="ld-org" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -101,6 +75,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             areaServed: "US",
           })}
         </Script>
+      </head>
+      <body>
+        {/* Google Tag Manager (noscript) */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `
+              <iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+            `,
+          }}
+        />
+
+        <Navbar />
+        {children}
+        <Footer />
 
         {/* Wrap in Suspense to satisfy Next.js CSR bailout rules */}
         <Suspense fallback={null}>
