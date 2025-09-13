@@ -17,12 +17,14 @@ export default function GetStartedPage() {
     const name = (form.elements.namedItem("name") as HTMLInputElement)?.value;
     const email = (form.elements.namedItem("email") as HTMLInputElement)?.value;
     const interest = (form.elements.namedItem("interest") as HTMLSelectElement)?.value;
+    const courseTitle = (form.elements.namedItem("courseTitle") as HTMLInputElement)?.value || "";
+    const startWhen = (form.elements.namedItem("startWhen") as HTMLInputElement)?.value || "";
     const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value;
 
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, interest, message }),
+      body: JSON.stringify({ name, email, interest, courseTitle, startWhen, message }),
     });
 
     if (res.ok) {
@@ -107,8 +109,35 @@ export default function GetStartedPage() {
                 defaultValue="Match with a Tutor"
               >
                 <option>Match with a Tutor</option>
-                <option>Everything Else</option>
+                <option>General Inquiries</option>
               </select>
+            </div>
+
+            {/* Optional fields */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="courseTitle" className="block text-sm font-medium text-brand-navy">
+                  Course Title <span className="text-brand-navy/50">(optional)</span>
+                </label>
+                <input
+                  id="courseTitle"
+                  name="courseTitle"
+                  className="mt-1 w-full rounded-xl border border-brand-navy/20 bg-white px-3 py-2 text-brand-navy placeholder:text-brand-navy/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40"
+                  placeholder="e.g., Organic Chemistry I"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="startWhen" className="block text-sm font-medium text-brand-navy">
+                  When would you like to start? <span className="text-brand-navy/50">(optional)</span>
+                </label>
+                <input
+                  id="startWhen"
+                  name="startWhen"
+                  className="mt-1 w-full rounded-xl border border-brand-navy/20 bg-white px-3 py-2 text-brand-navy placeholder:text-brand-navy/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40"
+                  placeholder="e.g., Next week / Sept 20"
+                />
+              </div>
             </div>
 
             <div>
@@ -120,9 +149,14 @@ export default function GetStartedPage() {
                 name="message"
                 rows={5}
                 className="mt-1 w-full rounded-xl border border-brand-navy/20 bg-white px-3 py-2 text-brand-navy placeholder:text-brand-navy/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40"
-                placeholder="Ask anything or share your goals (class, topics, timeframe, test dates, etc.)."
+                placeholder="Anything else we should know?"
               />
             </div>
+
+            {/* Friendly note */}
+            <p className="text-sm italic text-brand-navy/60">
+              This inbox is monitored by real humans 👋 — we usually get back to you within a few hours.
+            </p>
 
             <div className="flex items-center justify-end">
               <button

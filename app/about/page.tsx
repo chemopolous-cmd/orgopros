@@ -15,9 +15,7 @@ export default function AboutPage() {
               </h1>
               <div className="mt-3 text-lg text-brand-navy/80 space-y-4 max-w-prose">
                 <p>
-                  We’re PhD organic chemists who believe students deserve more from one-on-one tutoring.
-                  Across different classrooms and departments we ran into the same issue: subject mastery
-                  and great teaching are different skills. <span className="font-medium text-brand-navy">OrgoPros</span> exists to bring both together.
+                  We are a group of PhD organic chemists, and Harvard graduates, who believe students deserve more from one-on-one tutoring. Across different classrooms and departments we ran into the same issue: subject mastery and great teaching are different skills. <span className="font-medium text-brand-navy">OrgoPros</span> exists to bring you both.
                 </p>
                 <p>
                   While many tutoring platforms screen with AI or a quick test, we hire the way schools should:
@@ -26,7 +24,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   We also built incentives that value teaching. Competitors often pay tutors a small fraction of what students are charged;
-                  our starting pay is roughly <span className="font-semibold">3× higher</span> than typical platforms, with room to grow.
+                  our starting pay is <span className="font-semibold">more than twice as much</span> as typical platforms, with room to grow.
                   Your money goes to a great teacher, not to overhead.
                 </p>
               </div>
@@ -36,7 +34,7 @@ export default function AboutPage() {
             <div className="relative w-full h-[28vh] sm:h-[40vh] lg:h-[56vh] bg-white">
               <Image
                 src="/hero.jpg"
-                alt="Student and tutor reviewing organic chemistry mechanisms"
+                alt="OrgoPros: Great chemists. Better teachers."
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
